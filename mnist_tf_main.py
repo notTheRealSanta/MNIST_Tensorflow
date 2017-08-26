@@ -7,7 +7,8 @@ mnist = input_data.read_data_sets("MNIST/", one_hot = True)
 
 #number of nodes in each hidden layer
 nodes_hl1_len = 784
-nodes_hl2_len = (784*2)
+nodes_hl2_len = 1568
+nodes_hl3_len = 2352
 
 #classes is the number of distint outputs
 classes_len = 10
@@ -27,8 +28,12 @@ def neural_network_model (data) :
         hidden_layer_2_weights = tf.Variable(tf.random_normal([nodes_hl1_len, nodes_hl2_len]), name = "W")
         hidden_layer_2_biases  = tf.Variable(tf.random_normal([nodes_hl2_len]), name = "B")
 
+    with tf.name_scope ("Layer_") :
+        hidden_layer_3_weights = tf.Variable(tf.random_normal([nodes_hl2_len, nodes_hl3_len]), name = "W")
+        hidden_layer_3_biases  = tf.Variable(tf.random_normal([nodes_hl3_len]), name = "B")
+
     with tf.name_scope ("Output_Layer") :
-        output_layer_weights = tf.Variable(tf.random_normal([nodes_hl2_len,classes_len]), name = "W")
+        output_layer_weights = tf.Variable(tf.random_normal([nodes_hl3_len,classes_len]), name = "W")
         output_layer_biases = tf.Variable(tf.random_normal([classes_len]), name = "B")
         tf.summary.histogram("weights",output_layer_weights)
         tf.summary.histogram("biases", output_layer_biases )
@@ -39,7 +44,10 @@ def neural_network_model (data) :
     l2 = tf.add(tf.matmul(l1, hidden_layer_2_weights), hidden_layer_2_biases)
     l2 = tf.nn.relu(l2)
 
-    output_layer = tf.add(tf.matmul(l2, output_layer_weights), output_layer_biases)
+    l3 = tf.add(tf.matmul(l2, hidden_layer_3_weights), hidden_layer_3_biases)
+    l3 = tf.nn.relu(l3)
+
+    output_layer = tf.add(tf.matmul(l3, output_layer_weights), output_layer_biases)
 
     return output_layer
 
@@ -62,7 +70,7 @@ def train_neural_network (x):
 
         for epoch in range(epoch_len) :
 
-            epoch_loss = 0;
+            epoch_loss = 0
 
             for _ in range(int(mnist.train.num_examples/batch_size)) :
                 epoch_x, epoch_y = mnist.train.next_batch(batch_size)
