@@ -62,7 +62,7 @@ def train_neural_network (x):
 
     optimizer = tf.train.AdamOptimizer().minimize(cost)
 
-    epoch_len = 50
+    epoch_len = 10
 
     with tf.Session() as sess :
 
