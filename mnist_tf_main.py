@@ -10,7 +10,7 @@ nodes_hl1_len = 784
 nodes_hl2_len = 1568
 nodes_hl3_len = 2352
 
-#classes is the number of distint outputs
+#classes is the number of distinct outputs
 classes_len = 10
 batch_size = 100
 
@@ -20,7 +20,7 @@ y = tf.placeholder(tf.float32, name="y")
 #defining the model of the network
 def neural_network_model (data) :
 
-    with tf.name_scope ("Layer_1") :
+    with tf.name_scope ("Layer_1") :  
         hidden_layer_1_weights = tf.Variable(tf.random_normal([784,nodes_hl1_len]), name = "W")
         hidden_layer_1_biases  = tf.Variable(tf.random_normal([nodes_hl1_len]), name = "B")
 

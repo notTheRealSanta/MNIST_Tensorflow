@@ -3,6 +3,7 @@ AI to read numbers from the MNIST data set.
 
 
 ## Comparing different types and ways of neural network
+### Datasets about dataset
 
 |  Accuracy  | Type of NN | Layer 1 | Layer 2 | Layer 3 | Epochs | 
 |:----------:|:----------:|:-------:|:-------:|:-------:|:------:|
